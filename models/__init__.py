@@ -9,16 +9,27 @@ db = SQLAlchemy()
 class ModelBase(db.Model):
     __abstract__ = True
 
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    deleted = db.Column(db.Boolean, nullable=False, default=False)
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+        nullable=False,
+    )
+    deleted = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=False,
+        server_default=db.text('false'),
+    )
     created = db.Column(
         db.DateTime,
-        default=datetime.datetime.utcnow
+        default=datetime.datetime.utcnow,
+        server_default=db.text('CURRENT_TIMESTAMP'),
     )
     updated = db.Column(
         db.DateTime,
         default=datetime.datetime.utcnow,
-        onupdate=datetime.datetime.utcnow
+        onupdate=datetime.datetime.utcnow,
+        server_default=db.text('CURRENT_TIMESTAMP'),
     )
 
 
@@ -26,7 +37,7 @@ class Ownable(ModelBase):
     __abstract__ = True
 
     @declared_attr
-    def owner(cls):
+    def owner_id(cls):
         return db.Column(
             db.Integer,
             db.ForeignKey('user.id', ondelete='CASCADE'),
@@ -71,25 +82,14 @@ class Task(Ownable):
         db.DateTime,
         nullable=False,
         index=True,
-        default=datetime.datetime.utcnow()
+        default=datetime.datetime.utcnow(),
+        server_default=db.text('CURRENT_TIMESTAMP')
     )
 
-
-# def init_auth(app):
-#     lm = LoginManager(app)
-#     lm.login_view = 'login'
-
-#     @lm.user_loader
-#     def load_user(user_id):
-#         return User.query.get(user_id)
-
-#     @app.before_request
-#     def global_user():
-#         g.user = current_user._get_current_object()
-
-#     @app.context_processor
-#     def inject_user():
-#         try:
-#             return {'user': g.user}
-#         except AttributeError:
-#             return {'user': None}
+    owner = db.relationship(
+        'User',
+        backref=db.backref(
+            'tasks',
+            lazy='dynamic',
+        )
+    )

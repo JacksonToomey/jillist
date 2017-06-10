@@ -3,3 +3,4 @@ development.py
 __pycache__/
 *.pyc
 jillist.db
+manage.sh

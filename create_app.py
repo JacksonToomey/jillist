@@ -1,7 +1,9 @@
 from flask import Flask, render_template, g
 from social_flask.routes import social_auth
 from flask_login import current_user, LoginManager, login_required
+from flask_migrate import Migrate
 from social_flask_sqlalchemy.models import init_social, PSABase
+from api import api
 from models import db, User
 
 
@@ -10,6 +12,7 @@ def create_app(config='Config'):
     app.config.from_object('config.' + config)
 
     db.init_app(app)
+    Migrate(app, db)
     init_social(app, db.session)
 
     lm = LoginManager(app)
@@ -31,6 +34,7 @@ def create_app(config='Config'):
             return {'user': None}
 
     app.register_blueprint(social_auth)
+    app.register_blueprint(api, url_prefix='/api')
 
     @app.before_first_request
     def init_app():
