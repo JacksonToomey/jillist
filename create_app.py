@@ -13,7 +13,8 @@ def create_app(config='Config'):
 
     db.init_app(app)
     Migrate(app, db)
-    init_social(app, db.session)
+    if config != 'TestConfig':
+        init_social(app, db.session)
 
     lm = LoginManager(app)
     lm.login_view = 'login'
