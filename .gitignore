@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 jillist.db
 manage.sh
+node_modules/
+package-lock.json
