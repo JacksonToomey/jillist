@@ -21,7 +21,8 @@ def tests():
     result = unittest.TextTestRunner(verbosity=2).run(tests)
     if result.wasSuccessful():
         return 0
-    return 1
+    raise Exception('Tests Failed')
+
 
 cli.add_command(MigrateCommand, 'db')
 
