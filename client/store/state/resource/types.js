@@ -1,0 +1,3 @@
+const PREFIX = 'JILLIST_RESOURCE/';
+
+export const SET_ITEMS = PREFIX + 'SET_ITEMS';

@@ -34,6 +34,8 @@ module.exports = {
             'redux-little-router',
             'moment',
             'moment-timezone',
+            'react-bootstrap',
+            'axios',
         ]
     },
     output: {
@@ -61,7 +63,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
+                loader: 'url-loader?limit=30000&name=../fonts/[name]-[hash].[ext]'
             }
         ]
     },
@@ -69,5 +71,8 @@ module.exports = {
         extensions: ['.js', '.jsx']
     },
     plugins,
-    devtool
+    devtool,
+    externals: {
+        'electron': 'electron',
+    }
 }
