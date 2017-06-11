@@ -5,12 +5,13 @@ sudo: required
 services:
   - postgresql
 before_script:
-  - npm install -g n
-  - n 6.11.0
+  - sudo npm install -g n
+  - sudo n 6.11.0
   - npm install npm -g
   - psql -c 'create database jillist;' -U postgres
   - psql -c 'create database test_jillist;' -U postgres
   - python manage.py db upgrade
+  - npm install
 install:
   - "pip install -r requirements.txt"
 script: python manage.py tests
