@@ -1,5 +1,7 @@
-from flask import Blueprint, jsonify, g
+from flask import Blueprint, jsonify, g, request
 from flask_login import login_required
+from serializers import TaskSchema
+import models
 
 
 api = Blueprint('api', __name__)
@@ -9,4 +11,16 @@ api = Blueprint('api', __name__)
 @login_required
 def get_tasks():
     tasks = g.user.tasks.order_by('created').all()
-    return jsonify([])
+    return jsonify(TaskSchema(many=True).dump(tasks).data)
+
+
+@api.route('/tasks/', methods=['POST'])
+@login_required
+def create_task():
+    data, _ = TaskSchema(
+        strict=True,
+        context={'user': g.user}
+    ).load(request.get_json())
+    models.db.session.add(data)
+    models.db.session.commit()
+    return jsonify(TaskSchema().dump(data).data), 201

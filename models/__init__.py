@@ -22,11 +22,13 @@ class ModelBase(db.Model):
     )
     created = db.Column(
         db.DateTime,
+        nullable=False,
         default=datetime.datetime.utcnow,
         server_default=db.text('CURRENT_TIMESTAMP'),
     )
     updated = db.Column(
         db.DateTime,
+        nullable=False,
         default=datetime.datetime.utcnow,
         onupdate=datetime.datetime.utcnow,
         server_default=db.text('CURRENT_TIMESTAMP'),
@@ -41,7 +43,7 @@ class Ownable(ModelBase):
         return db.Column(
             db.Integer,
             db.ForeignKey('user.id', ondelete='CASCADE'),
-            nullable=False
+            nullable=False,
         )
 
 
