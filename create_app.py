@@ -48,6 +48,6 @@ def create_app(config='Config'):
     @app.route('/<path:path>')
     @login_required
     def index(path=None):
-        return 'coming soon'
+        return render_template('app.html')
 
     return app

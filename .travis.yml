@@ -4,9 +4,50 @@ python:
 services:
   - postgresql
 before_script:
+  - npm install -g n
+  - n 6.11.0
+  - npm install npm -g
   - psql -c 'create database jillist;' -U postgres
   - psql -c 'create database test_jillist;' -U postgres
   - python manage.py db upgrade
 install:
   - "pip install -r requirements.txt"
 script: python manage.py tests
+# language: python
+# python:
+#   - "3.6"
+# sudo: required
+# node_js:
+#   - "4.3.2"
+# env:
+#   - CXX=g++-4.8
+# addons:
+#   apt:
+#     sources:
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - g++-4.8
+# cache:
+#   yarn: true
+# services:
+#   - postgresql
+# before_script:
+#   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
+#   - source ~/.nvm/nvm.sh
+#   - nvm install $TRAVIS_NODE_VERSION
+#   - node --version
+#   - nvm use $TRAVIS_NODE_VERSION
+#   - if [[ `npm -v` != 4* ]]; then npm i -g npm@4; fi
+#   - npm i -g yarn
+#   - node --version
+#   - yarn --version
+#   - which yarn
+#   - which node
+#   - yarn
+#   - psql -c 'create database jobbr;' -U postgres
+#   - psql -c 'create database test_jobbr;' -U postgres
+#   - python manage.py db upgrade
+#   - webpack -p
+# install:
+#   - "pip install -r requirements.txt"
+# script: python -m unittest
