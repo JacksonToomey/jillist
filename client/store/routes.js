@@ -5,11 +5,11 @@ import { setItems } from './state/resource/actions';
 export default {
     "/": {
         controller: () => dispatch => {
-            dispatch(getTasks()).then(res => {
-                dispatch(setItems(res.body));
-            })
+            dispatch(getTasks())
             .catch(e => {
                 console.log(e);
+            }).then(res => {
+                dispatch(setItems(res.data, 'tasks'));
             })
         }
     }
