@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request, redirect
 from social_flask.routes import social_auth
 from flask_login import current_user, LoginManager, login_required
 from flask_migrate import Migrate
@@ -25,6 +25,12 @@ def create_app(config='Config'):
     @lm.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
+
+    @app.before_request
+    def force_ssl():
+        if not app.config['SKIP_SSL'] and request.url.startswith('http://'):
+            new = request.url.replace('http://', 'https://', 1)
+            return redirect(new, code=301)
 
     @app.before_request
     def global_user():
