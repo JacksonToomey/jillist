@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p --progress"
+    "postinstall": "webpack -p --progress"
   },
   "engines": {
     "node": "6.11.0"
