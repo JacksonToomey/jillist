@@ -35,6 +35,8 @@ module.exports = {
             'moment',
             'moment-timezone',
             'react-bootstrap',
+            'react-datepicker',
+            'rc-time-picker',
             'axios',
         ]
     },

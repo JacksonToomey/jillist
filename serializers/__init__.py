@@ -9,6 +9,7 @@ ma = Marshmallow()
 class TaskSchema(ma.ModelSchema):
     class Meta:
         model = models.Task
+        sqla_session = models.db.session
 
     @post_load
     def create_task(self, data):

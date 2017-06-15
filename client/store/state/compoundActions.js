@@ -1,8 +1,9 @@
-import { postTask } from '../middleware/api/actions';
+import { postTask, putTask } from '../middleware/api/actions';
 import { closeNewTaskModal, setModalErrors } from './modals/actions';
 import { setItem } from './resource/actions';
 
 import { makeGetModalData } from './modals/selectors';
+import { getTasks } from './resource/selectors';
 
 const getModalData = makeGetModalData('newTask');
 
@@ -16,5 +17,12 @@ export const createTask = () => (dispatch, getState) => {
     .catch(err => {
         dispatch(setModalErrors(err.response.data, 'newTask'))
     })
-    // dispatch(closeNewTaskModal());
+}
+
+export const completeTask = taskId => (dispatch, getState) => {
+    let task = getTasks(getState()).get(taskId);
+    task = task.set('closed', true);
+    dispatch(putTask(task)).then(resp => {
+        dispatch(setItem(resp.data, 'tasks'));
+    })
 }

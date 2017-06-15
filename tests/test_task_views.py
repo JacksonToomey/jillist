@@ -1,5 +1,6 @@
 import json
 from test_utils import DBTestCase, fixtures
+from serializers import TaskSchema
 import models
 
 
@@ -55,3 +56,32 @@ class TestTaskViews(DBTestCase):
             task = data[0]
 
             self.assertEqual('First User', task['description'])
+
+    def test_put_task(self):
+        self.assertEqual(0, models.Task.query.count())
+        t = fixtures.TaskFactory(
+            description='First User',
+            closed=False,
+            owner=self.user,
+        )
+        data = TaskSchema().dump(t).data
+        data['closed'] = True
+        with self.app.test_client() as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = self.user.id
+            resp = c.put(
+                '/api/tasks/{}/'.format(str(t.id)),
+                data=json.dumps(data),
+                content_type='application/json',
+            )
+
+        self.assertEqual(200, resp.status_code)
+        self.assertEqual(1, models.Task.query.count())
+
+        tsk = models.Task.query.first()
+        self.assertEqual(True, tsk.closed)
+
+        data = json.loads(resp.data)
+        self.assertEqual(True, data['closed'])
+
+        self.assertEqual(t.id, data['id'])

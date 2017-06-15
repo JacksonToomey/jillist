@@ -10,3 +10,10 @@ export const postTask = taskData => ({
         taskData
     }
 })
+
+export const putTask = task => ({
+    type: types.PUT_TASK,
+    payload: {
+        task
+    }
+})
