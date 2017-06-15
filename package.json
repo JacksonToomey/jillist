@@ -40,9 +40,7 @@
     "redux-little-router": "^13.1.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.0",
-    "webpack": "^2.3.3"
-  },
-  "devDependencies": {
+    "webpack": "^2.3.3",
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
@@ -56,5 +54,7 @@
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8"
+  },
+  "devDependencies": {
   }
 }
