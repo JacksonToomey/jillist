@@ -35,7 +35,6 @@ def update_task(task_id):
         return abort(404)
     data, error = TaskSchema(
         instance=task,
-        # partial=True,
         context={'user': g.user}
     ).load(request.get_json())
     if error:
