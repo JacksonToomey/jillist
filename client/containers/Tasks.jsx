@@ -4,18 +4,24 @@ import { Navbar, Modal, Button, FormGroup, FormControl, Form, ControlLabel } fro
 
 import { getSortedTasks } from '../store/state/resource/selectors';
 
+import { setModalVisibility } from '../store/state/modals/actions';
+
+import NewTask from './NewTask';
+
 import Task from '../components/Task';
 import TaskListHeader from '../components/TaskListHeader';
 
 
 const Comp = ({
-    tasks
+    tasks,
+    newTaskShow,
 }) => {
     return (
         <div className="app-tasks-list">
             <TaskListHeader
-                onAddClick={e => { console.log(e); }} />
+                onAddClick={ newTaskShow } />
             {tasks.map((task, key) => <Task task={ task } key={ key } />)}
+            <NewTask />
         </div>
     )
 }
@@ -25,7 +31,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+    newTaskShow: () => {
+        dispatch(setModalVisibility(true, 'newTask'));
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comp);

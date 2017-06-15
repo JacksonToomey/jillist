@@ -17,10 +17,11 @@ def get_tasks():
 @api.route('/tasks/', methods=['POST'])
 @login_required
 def create_task():
-    data, _ = TaskSchema(
-        strict=True,
+    data, error = TaskSchema(
         context={'user': g.user}
     ).load(request.get_json())
+    if error:
+        return jsonify(error), 422
     models.db.session.add(data)
     models.db.session.commit()
     return jsonify(TaskSchema().dump(data).data), 201

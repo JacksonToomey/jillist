@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col, Panel } from 'react-bootstrap';
 
+import DateDisplay from '../components/DateDisplay';
+
 export default ({
     task
 }) => {
@@ -13,10 +15,7 @@ export default ({
                             { task.get('description') }
                         </Col>
                         <Col sm={ 5 }>
-                            { task.get('duedate') }
-                        </Col>
-                        <Col sm={ 2 }>
-                            Buttons
+                            <DateDisplay date={ task.get('duedate') } />
                         </Col>
                     </Row>
                 </Panel>

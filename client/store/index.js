@@ -8,6 +8,7 @@ import api from './middleware/api';
 import controllers from './middleware/controllers';
 
 import resource from './state/resource';
+import modals from './state/modals';
 
 
 export default () => {
@@ -24,6 +25,7 @@ export default () => {
         combineReducers({
             router: reducer,
             resource,
+            modals,
         }),
         compose(enhancer, applyMiddleware(ReduxThunk, api, controllers))
     );

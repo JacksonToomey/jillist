@@ -8,3 +8,11 @@ export const setItems = (items, itemName) => ({
         items: Map(fromJS(items).map(i => [i.get('id'), i])),
     }
 })
+
+export const setItem = (item, itemName) => ({
+    type: types.SET_ITEM,
+    payload: {
+        itemName,
+        item: fromJS(item),
+    }
+})
