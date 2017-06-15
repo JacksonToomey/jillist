@@ -1,0 +1,5 @@
+# !/usr/bin/env bash
+echo "=> Performing database migrations..."
+python manage.py db upgrade
+npm install
+npm run build
