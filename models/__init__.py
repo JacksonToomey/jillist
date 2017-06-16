@@ -73,6 +73,10 @@ class Task(Ownable):
         nullable=False,
         index=True
     )
+    details = db.Column(
+        db.Text,
+        nullable=True
+    )
     closed = db.Column(
         db.Boolean,
         default=False,
