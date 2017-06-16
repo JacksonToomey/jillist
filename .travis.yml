@@ -27,7 +27,6 @@ before_script:
   - psql -c 'create database jillist;' -U postgres
   - psql -c 'create database test_jillist;' -U postgres
   - python manage.py db upgrade
-  - webpack -p
 install:
   - "pip install -r requirements.txt"
 script: python manage.py tests
