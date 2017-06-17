@@ -10,6 +10,8 @@ import Layout from './Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'rc-time-picker/assets/index.css';
+import '../images/logo.png';
+import '../images/favicon.png';
 
 const store = createStore();
 
