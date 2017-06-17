@@ -19,6 +19,7 @@ const FormWidget = ({
     errors,
     onChange,
     type,
+    withLabel,
 }) => {
     let validation = null;
     if(errors.size > 0) {
@@ -39,22 +40,13 @@ const FormWidget = ({
                 onChange(e.target.value);
             }
         } }/>;
-    // if(type == 'textarea') {
-    //     body = <FormControl
-    //         autoFocus
-    //         type={ type }
-    //         componentClass="textarea"
-    //         value={ value }
-    //         placeholder={ label }
-    //         onChange={e => {
-    //             if(onChange) {
-    //                 onChange(e.target.value);
-    //             }
-    //         } }/>;
-    // }
     if(type == 'date' || type == 'datetime') {
         if(value == '') {
             value = moment();
+        }
+
+        if(typeof value === 'string') {
+            value = moment(value);
         }
         body = (
             <div>
@@ -78,9 +70,14 @@ const FormWidget = ({
             </div>
         )
     }
+
+    let labelDiv = <ControlLabel>{ label }</ControlLabel>;
+    if(!withLabel) {
+        labelDiv = null;
+    }
     return (
         <FormGroup validationState={ validation }>
-            <ControlLabel>{ label }</ControlLabel>
+            { labelDiv }
             { body }
             <FormControl.Feedback />
             {errors.map((error, key) => <HelpBlock key={ key }>{ error }</HelpBlock>)}
@@ -99,13 +96,15 @@ FormWidget.propTypes = {
         'text',
         'datetime',
         'textarea',
-    ])
+    ]),
+    withLabel: PropTypes.bool,
 };
 
 FormWidget.defaultProps = {
     value: '',
     errors: List(),
     type: 'text',
+    withLabel: true,
 }
 
 export default FormWidget;

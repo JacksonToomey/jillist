@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 const DateDisplay = ({
     date
 }) => {
-    let displayDate = moment(date);
+    let displayDate = date;
+    if(typeof displayDate === 'string') {
+        displayDate = moment(displayDate)
+    }
     return (
         <span>
             { displayDate.format('L') }
@@ -15,7 +18,10 @@ const DateDisplay = ({
 
 
 DateDisplay.propTypes = {
-    date: PropTypes.string.isRequired,
+    date: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.instanceOf(moment),
+    ]).isRequired,
 };
 
 export default DateDisplay;
