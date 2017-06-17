@@ -1,11 +1,14 @@
 import React from 'react';
 import { Row, Col, Panel, Button, Glyphicon } from 'react-bootstrap';
 
-import DateDisplay from '../components/DateDisplay';
+import DateDisplay from './DateDisplay';
+import Editable from './Editable'
 
 export default ({
     task,
     onComplete,
+    onUpdate,
+    onEdited,
 }) => {
     let controls = (
         <Button
@@ -29,17 +32,40 @@ export default ({
                         <Col sm={ 5 }>
                             <Row>
                                 <Col xs={ 12 }>
-                                    { task.get('description') }
+                                    <Editable
+                                        name="description"
+                                        label="Title"
+                                        onDoneEditing={ onEdited }
+                                        onChange={val => {
+                                            onUpdate('description', val, task.get('id'))
+                                        }}
+                                        value={ task.get('description') }/>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col xs={ 12 }>
-                                    { task.get('details') }
+                                    <Editable
+                                        name="details"
+                                        label="Description"
+                                        type="textarea"
+                                        onDoneEditing={ onEdited }
+                                        onChange={val => {
+                                            onUpdate('details', val, task.get('id'))
+                                        }}
+                                        value={ task.get('details') }/>
                                 </Col>
                             </Row>
                         </Col>
                         <Col sm={ 5 }>
-                            <DateDisplay date={ task.get('duedate') } />
+                            <Editable
+                                name="duedate"
+                                label="Due date"
+                                type="datetime"
+                                onDoneEditing={ onEdited }
+                                onChange={val => {
+                                    onUpdate('duedate', val, task.get('id'))
+                                }}
+                                value={ task.get('duedate') }/>
                         </Col>
                         <Col sm={ 2 }>
                             { controls }

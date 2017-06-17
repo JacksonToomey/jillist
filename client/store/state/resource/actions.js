@@ -16,3 +16,13 @@ export const setItem = (item, itemName) => ({
         item: fromJS(item),
     }
 })
+
+export const updateItem = (itemField, itemValue, itemId, itemName) => ({
+    type: types.UPDATE_ITEM,
+    payload: {
+        itemField,
+        itemValue,
+        itemId,
+        itemName,
+    }
+})
