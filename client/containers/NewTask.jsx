@@ -27,6 +27,7 @@ const Comp = ({
     data,
     errors,
     setDueDate,
+    setDetails,
 }) => {
     return (
         <Modal autoFocus className="new-task" show={ show }>
@@ -39,10 +40,18 @@ const Comp = ({
                 <Form>
                     <FormWidget
                         name="description"
-                        label="Task description"
+                        label="Title"
                         value={ data.get('description') }
                         onChange={ setDescription }
                         errors={ errors.get('description') }
+                        />
+                    <FormWidget
+                        name="details"
+                        label="Description"
+                        type="textarea"
+                        value={ data.get('details') }
+                        onChange={ setDetails }
+                        errors={ errors.get('details') }
                         />
                     <FormWidget
                         name="duedate"
@@ -83,7 +92,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch(setModalData('description', value, 'newTask'))
     },
     setDueDate: value => {
-        dispatch(setModalData('duedate', value, 'newTask'))
+        dispatch(setModalData('duedate', value, 'newTask'));
+    },
+    setDetails: value => {
+        dispatch(setModalData('details', value, 'newTask'));
     }
 })
 

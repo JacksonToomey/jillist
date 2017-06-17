@@ -27,7 +27,16 @@ export default ({
                 <Panel>
                     <Row>
                         <Col sm={ 5 }>
-                            { task.get('description') }
+                            <Row>
+                                <Col xs={ 12 }>
+                                    { task.get('description') }
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={ 12 }>
+                                    { task.get('details') }
+                                </Col>
+                            </Row>
                         </Col>
                         <Col sm={ 5 }>
                             <DateDisplay date={ task.get('duedate') } />

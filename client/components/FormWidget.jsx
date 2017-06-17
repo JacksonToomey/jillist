@@ -24,9 +24,14 @@ const FormWidget = ({
     if(errors.size > 0) {
         validation = 'error'
     }
+    let componentClass = 'input';
+    if(type == 'textarea') {
+        componentClass = 'textarea';
+    }
     let body = <FormControl
         autoFocus
         type={ type }
+        componentClass={ componentClass }
         value={ value }
         placeholder={ label }
         onChange={e => {
@@ -34,6 +39,19 @@ const FormWidget = ({
                 onChange(e.target.value);
             }
         } }/>;
+    // if(type == 'textarea') {
+    //     body = <FormControl
+    //         autoFocus
+    //         type={ type }
+    //         componentClass="textarea"
+    //         value={ value }
+    //         placeholder={ label }
+    //         onChange={e => {
+    //             if(onChange) {
+    //                 onChange(e.target.value);
+    //             }
+    //         } }/>;
+    // }
     if(type == 'date' || type == 'datetime') {
         if(value == '') {
             value = moment();
@@ -80,6 +98,7 @@ FormWidget.propTypes = {
     type: PropTypes.oneOf([
         'text',
         'datetime',
+        'textarea',
     ])
 };
 
