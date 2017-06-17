@@ -14,6 +14,16 @@ export default (state = new State(), action) => {
             });
         case types.SET_ITEM:
             return state.withMutations(s => s.setIn([action.payload.itemName, 'items', action.payload.item.get('id')], action.payload.item));
+        case types.UPDATE_ITEM:
+            return state.withMutations(s => {
+                let {
+                    itemField,
+                    itemValue,
+                    itemId,
+                    itemName
+                } = action.payload;
+                return s.setIn([itemName, 'items', itemId, itemField], itemValue);
+            })
         default:
             return state;
     }

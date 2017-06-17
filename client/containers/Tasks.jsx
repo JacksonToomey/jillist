@@ -5,7 +5,8 @@ import { Navbar, Modal, Button, FormGroup, FormControl, Form, ControlLabel } fro
 import { getTasksLoaded, getSortedTasks } from '../store/state/resource/selectors';
 
 import { setModalVisibility } from '../store/state/modals/actions';
-import { completeTask } from '../store/state/compoundActions';
+import { completeTask, syncTask } from '../store/state/compoundActions';
+import { updateItem } from '../store/state/resource/actions';
 
 import NewTask from './NewTask';
 
@@ -19,6 +20,8 @@ const Comp = ({
     newTaskShow,
     completeTask,
     loaded,
+    updateTask,
+    sync
 }) => {
     let taskList = <div>You have no tasks</div>;
     if(!loaded) {
@@ -27,7 +30,9 @@ const Comp = ({
     else if(tasks.size > 0) {
         taskList = tasks.map((task, key) => <Task
             onComplete={ completeTask }
+            onUpdate={ updateTask }
             task={ task }
+            onEdited={() => { sync(task.get('id')) }}
             key={ key } />
         )
     }
@@ -52,6 +57,12 @@ const mapDispatchToProps = dispatch => ({
     },
     completeTask: taskId => {
         dispatch(completeTask(taskId));
+    },
+    updateTask: (itemField, itemValue, itemId) => {
+        dispatch(updateItem(itemField, itemValue, itemId, 'tasks'));
+    },
+    sync: taskId => {
+        dispatch(syncTask(taskId));
     }
 })
 

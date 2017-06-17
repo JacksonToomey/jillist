@@ -26,3 +26,10 @@ export const completeTask = taskId => (dispatch, getState) => {
         dispatch(setItem(resp.data, 'tasks'));
     })
 }
+
+export const syncTask = taskId => (dispatch, getState) => {
+    let task = getTasks(getState()).get(taskId);
+    dispatch(putTask(task)).then(resp => {
+        dispatch(setItem(resp.data, 'tasks'))
+    })
+}
