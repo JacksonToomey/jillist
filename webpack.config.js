@@ -66,6 +66,13 @@ module.exports = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: 'url-loader?limit=30000&name=../fonts/[name]-[hash].[ext]'
+            },
+            {
+                test: /\.png$/,
+                loader: 'file-loader',
+                options: {
+                    name: '../images/[name].[ext]'
+                }
             }
         ]
     },

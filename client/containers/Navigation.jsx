@@ -9,7 +9,7 @@ const Comp = props => {
         <Navbar collapseOnSelect>
             <Navbar.Header>
                 <Navbar.Brand>
-                    Jillist
+                    <img src="/static/images/logo.png"/>
                 </Navbar.Brand>
             </Navbar.Header>
             <Navbar.Collapse>
