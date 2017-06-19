@@ -40,7 +40,7 @@ class Editable extends React.Component {
             return (
                 <div onKeyDown={ this.keyPress }>
                     <FormWidget {...this.props} />
-                    <Button onClick={ this.doneEditing }>Save</Button>
+                    <Button bsStyle="primary" onClick={ this.doneEditing }>Save</Button>
                 </div>
             )
         }
