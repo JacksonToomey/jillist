@@ -1,5 +1,6 @@
 import { postTask, putTask } from '../middleware/api/actions';
 import { closeNewTaskModal, setModalErrors } from './modals/actions';
+import { addSuccess } from './notifications/actions';
 import { setItem } from './resource/actions';
 
 import { makeGetModalData } from './modals/selectors';
@@ -13,6 +14,7 @@ export const createTask = () => (dispatch, getState) => {
     .then(resp => {
         dispatch(setItem(resp.data, 'tasks'));
         dispatch(closeNewTaskModal());
+        dispatch(addSuccess('Task created'));
     })
     .catch(err => {
         dispatch(setModalErrors(err.response.data, 'newTask'))
@@ -24,6 +26,7 @@ export const completeTask = taskId => (dispatch, getState) => {
     task = task.set('closed', true);
     dispatch(putTask(task)).then(resp => {
         dispatch(setItem(resp.data, 'tasks'));
+        dispatch(addSuccess('Task completed'));
     })
 }
 
@@ -31,5 +34,6 @@ export const syncTask = taskId => (dispatch, getState) => {
     let task = getTasks(getState()).get(taskId);
     dispatch(putTask(task)).then(resp => {
         dispatch(setItem(resp.data, 'tasks'))
+        dispatch(addSuccess('Task updated'))
     })
 }

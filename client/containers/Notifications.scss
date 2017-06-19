@@ -1,0 +1,7 @@
+.app-notifications {
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+    width: 400px;
+    @import '../components/Notification.scss';
+}

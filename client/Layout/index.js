@@ -5,6 +5,7 @@ import { Fragment } from 'redux-little-router';
 
 import Navigation from '../containers/Navigation';
 import Tasks from '../containers/Tasks';
+import Notifications from '../containers/Notifications';
 
 
 const Comp = props => {
@@ -16,6 +17,7 @@ const Comp = props => {
                     <Fragment forRoute="/">
                         <Tasks />
                     </Fragment>
+                    <Notifications />
                 </Grid>
             </div>
         </Fragment>
