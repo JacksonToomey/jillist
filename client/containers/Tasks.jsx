@@ -1,6 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar, Modal, Button, FormGroup, FormControl, Form, ControlLabel } from 'react-bootstrap';
+import {
+    Navbar,
+    Modal,
+    Button,
+    FormGroup,
+    FormControl,
+    Form,
+    ControlLabel,
+    ListGroup,
+    ListGroupItem,
+} from 'react-bootstrap';
 
 import { getTasksLoaded, getSortedTasks } from '../store/state/resource/selectors';
 
@@ -28,12 +38,18 @@ const Comp = ({
         taskList = <Loading />
     }
     else if(tasks.size > 0) {
-        taskList = tasks.map((task, key) => <Task
-            onComplete={ completeTask }
-            onUpdate={ updateTask }
-            task={ task }
-            onEdited={() => { sync(task.get('id')) }}
-            key={ key } />
+        taskList = (
+            <ListGroup>
+                {tasks.map((task, key) => (
+                    <ListGroupItem key={ key }>
+                    <Task
+                        onComplete={ completeTask }
+                        onUpdate={ updateTask }
+                        task={ task }
+                        onEdited={() => { sync(task.get('id')) }}/>
+                    </ListGroupItem>
+                ))}
+            </ListGroup>
         )
     }
     return (
