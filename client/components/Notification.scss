@@ -1,0 +1,25 @@
+@keyframes showNotification {
+    from {
+        margin-right: auto;
+        width: 0px;
+        opacity: 0;
+    }
+    25% {
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+
+.app-notification {
+    animation-duration: 450ms;
+    animation-name: showNotification;
+
+    &.removed {
+        transition: opacity 1s;
+        opacity: 0;
+    }
+}

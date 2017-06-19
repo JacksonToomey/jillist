@@ -6,9 +6,11 @@ import routes from './routes';
 
 import api from './middleware/api';
 import controllers from './middleware/controllers';
+import notificationMiddleware from './state/notifications/middleware';
 
 import resource from './state/resource';
 import modals from './state/modals';
+import notifications from './state/notifications';
 
 
 export default () => {
@@ -26,8 +28,14 @@ export default () => {
             router: reducer,
             resource,
             modals,
+            notifications,
         }),
-        compose(enhancer, applyMiddleware(ReduxThunk, api, controllers))
+        compose(enhancer, applyMiddleware(
+            ReduxThunk,
+            api,
+            controllers,
+            notificationMiddleware,
+        ))
     );
 
     let initialLocation = store.getState().router;
