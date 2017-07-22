@@ -12,7 +12,7 @@ import {
     ListGroupItem,
 } from 'react-bootstrap';
 
-import { getTasksLoaded, getSortedTasks } from '../store/state/resource/selectors';
+import { getTasksLoaded, getSortedOpenTasks, getSortedCompleteTasks } from '../store/state/resource/selectors';
 
 import { setModalVisibility } from '../store/state/modals/actions';
 import { completeTask, syncTask } from '../store/state/compoundActions';
@@ -37,7 +37,8 @@ const Comp = ({
     loaded,
     updateTask,
     deleteTask,
-    sync
+    completedTasks,
+    sync,
 }) => {
     let taskList = <div>You have no tasks</div>;
     if(!loaded) {
@@ -46,9 +47,23 @@ const Comp = ({
     else if(tasks.size > 0) {
         taskList = (
             <div>
+            <h4>Open</h4>
             <ListHeader />
             <ListGroup>
                 {tasks.map((task, key) => (
+                    <ListGroupItem key={ key }>
+                    <Task
+                        onComplete={ completeTask }
+                        onUpdate={ updateTask }
+                        task={ task }
+                        onEdited={() => { sync(task.get('id')) }}
+                        onDeleted={ deleteTask }/>
+                    </ListGroupItem>
+                ))}
+            </ListGroup>
+            <h4>Complete</h4>
+            <ListGroup>
+                {completedTasks.map((task, key) => (
                     <ListGroupItem key={ key }>
                     <Task
                         onComplete={ completeTask }
@@ -74,7 +89,8 @@ const Comp = ({
 }
 
 const mapStateToProps = state => ({
-    tasks: getSortedTasks(state),
+    tasks: getSortedOpenTasks(state),
+    completedTasks: getSortedCompleteTasks(state),
     loaded: getTasksLoaded(state),
 })
 

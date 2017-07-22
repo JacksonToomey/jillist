@@ -11,7 +11,7 @@ const DateDisplay = ({
     }
     return (
         <span>
-            { displayDate.format('L') }
+            { displayDate.format('L LT') }
         </span>
     )
 }

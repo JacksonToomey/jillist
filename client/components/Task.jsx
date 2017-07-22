@@ -56,6 +56,14 @@ export default ({
                             value={ task.get('duedate') }/>
                     </Col>
                     <Col sm={ 3 }>
+                        <Editable
+                            name="waiting_on"
+                            label="Waiting On"
+                            onDoneEditing={ onEdited }
+                            onChange={val => {
+                                onUpdate('waiting_on', val, task.get('id'))
+                            }}
+                            value={ task.get('waiting_on') }/>
                     </Col>
                     <Col sm={ 3 }>
                         <TaskControlGroup

@@ -28,11 +28,12 @@ const Comp = ({
     errors,
     setDueDate,
     setDetails,
+    setWaitingOn,
 }) => {
     return (
-        <Modal autoFocus className="new-task" show={ show }>
+        <Modal autoFocus className="new-task" show={show}>
             <Modal.Header
-                onHide={ closeModal }
+                onHide={closeModal}
                 closeButton>
                 <Modal.Title>Add Task</Modal.Title>
             </Modal.Header>
@@ -41,31 +42,38 @@ const Comp = ({
                     <FormWidget
                         name="description"
                         label="Title"
-                        value={ data.get('description') }
-                        onChange={ setDescription }
-                        errors={ errors.get('description') }
-                        />
+                        value={data.get('description')}
+                        onChange={setDescription}
+                        errors={errors.get('description')}
+                    />
                     <FormWidget
                         name="details"
                         label="Description"
                         type="textarea"
-                        value={ data.get('details') }
-                        onChange={ setDetails }
-                        errors={ errors.get('details') }
-                        />
+                        value={data.get('details')}
+                        onChange={setDetails}
+                        errors={errors.get('details')}
+                    />
                     <FormWidget
                         name="duedate"
                         label="Task due date"
                         type="datetime"
-                        onChange={ setDueDate }
-                        value={ data.get('duedate') }
-                        errors={ errors.get('duedate') }
-                        />
+                        onChange={setDueDate}
+                        value={data.get('duedate')}
+                        errors={errors.get('duedate')}
+                    />
+                    <FormWidget
+                        name="waiting_on"
+                        label="Waiting On"
+                        value={data.get('waiting_on')}
+                        onChange={setWaitingOn}
+                        errors={errors.get('waiting_on')}
+                    />
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={ closeModal }>Close</Button>
-                <Button bsStyle="primary" onClick={ create }>Add</Button>
+                <Button onClick={closeModal}>Close</Button>
+                <Button bsStyle="primary" onClick={create}>Add</Button>
             </Modal.Footer>
         </Modal>
     )
@@ -96,6 +104,9 @@ const mapDispatchToProps = dispatch => ({
     },
     setDetails: value => {
         dispatch(setModalData('details', value, 'newTask'));
+    },
+    setWaitingOn: value => {
+        dispatch(setModalData('waiting_on', value, 'newTask'));
     }
 })
 

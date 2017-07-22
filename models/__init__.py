@@ -97,6 +97,10 @@ class Task(Ownable):
         default=datetime.datetime.utcnow(),
         server_default=db.text('CURRENT_TIMESTAMP')
     )
+    waiting_on = db.Column(
+        db.Text,
+        nullable=True,
+    )
 
     owner = db.relationship(
         'User',

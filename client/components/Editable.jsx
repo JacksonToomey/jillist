@@ -48,6 +48,9 @@ class Editable extends React.Component {
         if(this.props.type == 'datetime') {
             value = <DateDisplay date={ this.props.value }/>
         }
+        if(this.props.value == null) {
+            value = '-';
+        }
         return (
             <div style={ this.props.style } onClick={ this.displayClick }>{ value }</div>
         )
