@@ -21,6 +21,9 @@ const FormWidget = ({
     type,
     withLabel,
 }) => {
+    if(value == null || typeof value === 'undefined') {
+        value = '';
+    }
     let validation = null;
     if(errors.size > 0) {
         validation = 'error'

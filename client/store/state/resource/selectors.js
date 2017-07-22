@@ -2,6 +2,12 @@ import { createSelector } from 'reselect';
 
 export const getTasks = ({ resource }) => resource.get('tasks').get('items');
 export const getTasksLoaded = ({ resource }) => resource.get('tasks').get('loaded');
+export const getDeleteTask = ({ resource }) => resource.get('tasks').get('deleteItem');
+
+export const getHasDeleteTask = createSelector(
+    [getDeleteTask],
+    deleteTask => deleteTask !== null
+)
 
 export const getCompleteTasks = createSelector(
     [getTasks],

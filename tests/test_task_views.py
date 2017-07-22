@@ -85,3 +85,18 @@ class TestTaskViews(DBTestCase):
         self.assertEqual(True, data['closed'])
 
         self.assertEqual(t.id, data['id'])
+
+    def test_delete_task(self):
+        self.assertEqual(0, models.Task.query.count())
+        t = fixtures.TaskFactory(
+            description='First User',
+            closed=False,
+            owner=self.user,
+        )
+        with self.app.test_client() as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = self.user.id
+            resp = c.delete(
+                '/api/tasks/{}/'.format(str(t.id)),
+            )
+        self.assertEqual(202, resp.status_code)

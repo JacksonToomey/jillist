@@ -4,6 +4,7 @@ const ResourceStore = Record({
     items: Map(),
     fetching: false,
     loaded: false,
+    deleteItem: null,
 })
 
 const State = Record({

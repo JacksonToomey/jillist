@@ -1,40 +1,29 @@
 import React from 'react';
-import { Row, Col, Panel, Button, Glyphicon } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import DateDisplay from './DateDisplay';
 import Editable from './Editable'
+import TaskControlGroup from './TaskControlGroup';
 
 export default ({
     task,
     onComplete,
     onUpdate,
     onEdited,
+    onDeleted,
 }) => {
-    let controls = (
-        <Button
-            onClick={() => {
-                if(onComplete) {
-                    onComplete(task.get('id'));
-                }
-            } }>
-            Complete <Glyphicon glyph="ok" />
-        </Button>
-    )
-
-    if(task.get('closed')) {
-        controls = <div>Done</div>
-    }
     return (
         <Row className="jillist-task">
             <Col xs={ 12 }>
                 <Row>
-                    <Col sm={ 5 }>
+                    <Col sm={ 3 }>
                         <Row>
                             <Col xs={ 12 }>
                                 <Editable
                                     name="description"
                                     label="Title"
                                     onDoneEditing={ onEdited }
+                                    style={{fontWeight: 'bold'}}
                                     onChange={val => {
                                         onUpdate('description', val, task.get('id'))
                                     }}
@@ -55,7 +44,7 @@ export default ({
                             </Col>
                         </Row>
                     </Col>
-                    <Col sm={ 5 }>
+                    <Col sm={ 3 }>
                         <Editable
                             name="duedate"
                             label="Due date"
@@ -66,8 +55,22 @@ export default ({
                             }}
                             value={ task.get('duedate') }/>
                     </Col>
-                    <Col sm={ 2 }>
-                        { controls }
+                    <Col sm={ 3 }>
+                        <Editable
+                            name="waiting_on"
+                            label="Waiting On"
+                            onDoneEditing={ onEdited }
+                            onChange={val => {
+                                onUpdate('waiting_on', val, task.get('id'))
+                            }}
+                            value={ task.get('waiting_on') }/>
+                    </Col>
+                    <Col sm={ 3 }>
+                        <TaskControlGroup
+                            task={ task }
+                            onComplete={ onComplete }
+                            onDeleted={ onDeleted }
+                            />
                     </Col>
                 </Row>
             </Col>
