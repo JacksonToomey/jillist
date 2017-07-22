@@ -1,9 +1,15 @@
 import datetime
 from sqlalchemy.ext.declarative import declared_attr
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, BaseQuery
 
 
-db = SQLAlchemy()
+class JillistQuery(BaseQuery):
+    @property
+    def active(self):
+        return self.filter_by(deleted=False)
+
+
+db = SQLAlchemy(query_class=JillistQuery)
 
 
 class ModelBase(db.Model):
