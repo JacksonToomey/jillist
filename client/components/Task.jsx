@@ -16,13 +16,14 @@ export default ({
         <Row className="jillist-task">
             <Col xs={ 12 }>
                 <Row>
-                    <Col sm={ 5 }>
+                    <Col sm={ 3 }>
                         <Row>
                             <Col xs={ 12 }>
                                 <Editable
                                     name="description"
                                     label="Title"
                                     onDoneEditing={ onEdited }
+                                    style={{fontWeight: 'bold'}}
                                     onChange={val => {
                                         onUpdate('description', val, task.get('id'))
                                     }}
@@ -43,7 +44,7 @@ export default ({
                             </Col>
                         </Row>
                     </Col>
-                    <Col sm={ 5 }>
+                    <Col sm={ 3 }>
                         <Editable
                             name="duedate"
                             label="Due date"
@@ -54,7 +55,9 @@ export default ({
                             }}
                             value={ task.get('duedate') }/>
                     </Col>
-                    <Col sm={ 2 }>
+                    <Col sm={ 3 }>
+                    </Col>
+                    <Col sm={ 3 }>
                         <TaskControlGroup
                             task={ task }
                             onComplete={ onComplete }

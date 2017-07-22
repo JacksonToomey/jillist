@@ -49,7 +49,7 @@ class Editable extends React.Component {
             value = <DateDisplay date={ this.props.value }/>
         }
         return (
-            <div onClick={ this.displayClick }>{ value }</div>
+            <div style={ this.props.style } onClick={ this.displayClick }>{ value }</div>
         )
     }
 }

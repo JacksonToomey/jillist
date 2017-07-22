@@ -15,7 +15,6 @@ const Comp = ({
     noAction,
     yesAction
 }) => {
-    console.log(show);
     return (
         <Modal autoFocus show={ show }>
             <Modal.Header>

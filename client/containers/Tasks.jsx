@@ -26,6 +26,7 @@ import DeleteItemModal from './DeleteItemModal';
 
 import Task from '../components/Task';
 import Loading from '../components/Loading';
+import ListHeader from '../components/ListHeader';
 import TaskListHeader from '../components/TaskListHeader';
 
 
@@ -44,6 +45,8 @@ const Comp = ({
     }
     else if(tasks.size > 0) {
         taskList = (
+            <div>
+            <ListHeader />
             <ListGroup>
                 {tasks.map((task, key) => (
                     <ListGroupItem key={ key }>
@@ -56,6 +59,7 @@ const Comp = ({
                     </ListGroupItem>
                 ))}
             </ListGroup>
+            </div>
         )
     }
     return (
