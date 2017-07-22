@@ -17,3 +17,10 @@ export const putTask = task => ({
         task
     }
 })
+
+export const deleteTask = taskId => ({
+    type: types.DELETE_TASK,
+    payload: {
+        taskId,
+    }
+})

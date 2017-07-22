@@ -30,7 +30,7 @@ def create_task():
 @api.route('/tasks/<task_id>/', methods=['PUT'])
 @login_required
 def update_task(task_id):
-    task = g.user.tasks.filter_by(id=task_id).first()
+    task = g.user.tasks.active.filter_by(id=task_id).first()
     if not task:
         return abort(404)
     data, error = TaskSchema(
@@ -42,3 +42,15 @@ def update_task(task_id):
     models.db.session.add(data)
     models.db.session.commit()
     return jsonify(TaskSchema().dump(data).data), 200
+
+
+@api.route('/tasks/<task_id>/', methods=['DELETE'])
+@login_required
+def delete_task(task_id):
+    task = g.user.tasks.active.filter_by(id=task_id).first()
+    if not task:
+        return abort(404)
+    task.deleted = True
+    models.db.session.add(task)
+    models.db.session.commit()
+    return jsonify({}), 202

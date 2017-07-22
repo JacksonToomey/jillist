@@ -24,6 +24,25 @@ export default (state = new State(), action) => {
                 } = action.payload;
                 return s.setIn([itemName, 'items', itemId, itemField], itemValue);
             })
+        case types.SET_DELETE_ITEM:
+            return state.withMutations(s => {
+                let {
+                    itemId,
+                    itemName,
+                } = action.payload;
+
+                return s.setIn([itemName, 'deleteItem'], itemId);
+            });
+        case types.CLEAR_DELETE_ITEM:
+            return state.withMutations(s => {
+                let { itemName } = action.payload;
+                return s.setIn([itemName, 'deleteItem'], null);
+            });
+        case types.DELETE_ITEM:
+            return state.withMutations(s => {
+                let { itemId, itemName } = action.payload;
+                return s.deleteIn([itemName, 'items', itemId]);
+            })
         default:
             return state;
     }
