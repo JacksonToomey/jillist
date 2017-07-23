@@ -37,10 +37,11 @@ class Editable extends React.Component {
 
     render() {
         if(this.state.editing) {
+            let props = {...this.props, inline: true, onEdit: this.doneEditing}
+
             return (
                 <div onKeyDown={ this.keyPress }>
-                    <FormWidget {...this.props} />
-                    <Button bsStyle="primary" onClick={ this.doneEditing }>Save</Button>
+                    <FormWidget {...props} />
                 </div>
             )
         }

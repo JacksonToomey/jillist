@@ -9,6 +9,8 @@ import {
     FormControl,
     ControlLabel,
     HelpBlock,
+    InputGroup,
+    Button,
 } from 'react-bootstrap';
 
 
@@ -20,6 +22,8 @@ const FormWidget = ({
     onChange,
     type,
     withLabel,
+    inline,
+    onEdit,
 }) => {
     if(value == null || typeof value === 'undefined') {
         value = '';
@@ -43,6 +47,14 @@ const FormWidget = ({
                 onChange(e.target.value);
             }
         } }/>;
+    if(inline) {
+        body = (
+            <InputGroup>
+                { body }
+                <InputGroup.Addon onClick={ onEdit }>Save</InputGroup.Addon>
+            </InputGroup>
+        )
+    }
     if(type == 'date' || type == 'datetime') {
         if(value == '') {
             value = moment();
@@ -50,6 +62,10 @@ const FormWidget = ({
 
         if(typeof value === 'string') {
             value = moment(value);
+        }
+        let controls = null;
+        if(inline) {
+            controls = <Button onClick={ onEdit }>Save</Button>
         }
         body = (
             <div>
@@ -70,6 +86,7 @@ const FormWidget = ({
                         }
                     }}
                     showSecond={false} />
+                    { controls }
             </div>
         )
     }
@@ -101,6 +118,8 @@ FormWidget.propTypes = {
         'textarea',
     ]),
     withLabel: PropTypes.bool,
+    inline: PropTypes.bool,
+    onEdit: PropTypes.func,
 };
 
 FormWidget.defaultProps = {
@@ -108,6 +127,8 @@ FormWidget.defaultProps = {
     errors: List(),
     type: 'text',
     withLabel: true,
+    inline: false,
+    onEdit: () => {},
 }
 
 export default FormWidget;
