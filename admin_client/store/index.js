@@ -4,14 +4,7 @@ import ReduxThunk from 'redux-thunk'
 
 import routes from './routes';
 
-import api from './middleware/api';
 import controllers from '../../shared_client/middleware/controllers';
-import notificationMiddleware from './state/notifications/middleware';
-
-import resource from './state/resource';
-import modals from './state/modals';
-import notifications from './state/notifications';
-
 
 export default () => {
 
@@ -26,19 +19,16 @@ export default () => {
     const store = createStore(
         combineReducers({
             router: reducer,
-            resource,
-            modals,
-            notifications,
         }),
         compose(enhancer, applyMiddleware(
             ReduxThunk,
-            api,
             controllers,
-            notificationMiddleware,
+            middleware,
         ))
     );
 
     let initialLocation = store.getState().router;
+    console.log(initialLocation);
     if (initialLocation) {
         store.dispatch(initializeCurrentLocation(initialLocation));
     }
