@@ -21,7 +21,8 @@ if(prod) {
 
 module.exports = {
     entry: {
-        "app": "./client/app.jsx",
+        "main": "./client/app.jsx",
+        "admin": "./admin_client/app.jsx",
         vendor: [
             'react',
             'react-dom',
@@ -42,8 +43,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'static/js'),
-        filename: 'main.js',
-        sourceMapFilename: 'main.map'
+        filename: '[name].js',
+        sourceMapFilename: '[name].map'
     },
     module: {
         loaders: [

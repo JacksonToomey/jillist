@@ -16,6 +16,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     DEBUG = os.environ.get('DEBUG', '0') == '1'
     SKIP_SSL = os.environ.get('SKIP_SSL', '0') == '1'
+    ADMIN_USER = os.environ.get('ADMIN_USER', None)
     TESTING = False
     LOGIN_DISABLED = False
 

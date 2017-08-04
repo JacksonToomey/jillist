@@ -1,4 +1,4 @@
-from flask import Flask, render_template, g, request, redirect
+from flask import Flask, render_template, g, request, redirect, abort
 from social_flask.routes import social_auth
 from flask_login import current_user, LoginManager, login_required
 from flask_migrate import Migrate
@@ -49,6 +49,14 @@ def create_app(config='Config'):
     @app.route('/login')
     def login():
         return render_template('login.html')
+
+    @app.route('/admin/')
+    @app.route('/admin/<path:path>')
+    @login_required
+    def admin(path=None):
+        if not g.user.email == app.config['ADMIN_USER']:
+            raise abort(403)
+        return render_template('admin.html')
 
     @app.route('/')
     @app.route('/<path:path>')
