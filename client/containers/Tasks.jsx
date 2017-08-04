@@ -44,7 +44,7 @@ const Comp = ({
     if(!loaded) {
         taskList = <Loading />
     }
-    else if(tasks.size > 0) {
+    else if(tasks.size > 0 || completedTasks.size > 0) {
         taskList = (
             <div>
             <h4>Open</h4>
