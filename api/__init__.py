@@ -1,7 +1,8 @@
 from functools import wraps
 from flask import Blueprint, jsonify, g, request, abort, current_app
 from flask_login import login_required
-from serializers import TaskSchema
+import sqlalchemy as sa
+from serializers import TaskSchema, AdminUsageSchema
 import models
 
 
@@ -64,3 +65,25 @@ def delete_task(task_id):
     models.db.session.add(task)
     models.db.session.commit()
     return jsonify({}), 202
+
+
+@api.route('/admin/usage/', methods=['GET'])
+@login_required
+@admin_required
+def usage():
+    q = models.db.session.query(
+        models.User.id.label('user'),
+        sa.func.sum(
+            sa.case([(models.Task.deleted.is_(False), 1)], else_=0)
+        ).label('active_count'),
+        sa.func.sum(
+            sa.case([(models.Task.deleted.is_(True), 1)], else_=0)
+        ).label('deleted_count'),
+        sa.func.sum(sa.text('1')).label('total_count'),
+    )\
+        .select_from(models.User)\
+        .outerjoin(models.Task)\
+        .group_by(models.User.id)\
+        .all()
+    serializer = AdminUsageSchema(many=True)
+    return jsonify(serializer.dump(q).data)

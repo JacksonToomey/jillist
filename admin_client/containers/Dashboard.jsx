@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 
 const Comp = props => {
     return (
-        <div>Dashboard</div>
+        <div className="admin-dashboard">
+
+        </div>
     );
 };
 

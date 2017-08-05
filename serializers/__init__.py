@@ -1,4 +1,4 @@
-from marshmallow import post_load
+from marshmallow import post_load, fields
 from flask_marshmallow import Marshmallow
 import models
 
@@ -16,3 +16,10 @@ class TaskSchema(ma.ModelSchema):
         if 'user' in self.context:
             data['owner'] = self.context['user']
         return data
+
+
+class AdminUsageSchema(ma.Schema):
+    user = fields.Integer()
+    active_count = fields.Integer()
+    deleted_count = fields.Integer()
+    total_count = fields.Integer()
