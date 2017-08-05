@@ -64,10 +64,3 @@ def delete_task(task_id):
     models.db.session.add(task)
     models.db.session.commit()
     return jsonify({}), 202
-
-
-@api.route('/admin/foo', methods=['GET'])
-@login_required
-@admin_required
-def foo():
-    return jsonify({})
