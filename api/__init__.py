@@ -1,10 +1,20 @@
-from flask import Blueprint, jsonify, g, request, abort
+from functools import wraps
+from flask import Blueprint, jsonify, g, request, abort, current_app
 from flask_login import login_required
 from serializers import TaskSchema
 import models
 
 
 api = Blueprint('api', __name__)
+
+
+def admin_required(f):
+    @wraps(f)
+    def _wrapper(*args, **kwargs):
+        if not g.user.email == current_app.config['ADMIN_USER']:
+            raise abort(403)
+        return f(*args, **kwargs)
+    return _wrapper
 
 
 @api.route('/tasks/', methods=['GET'])
@@ -54,3 +64,10 @@ def delete_task(task_id):
     models.db.session.add(task)
     models.db.session.commit()
     return jsonify({}), 202
+
+
+@api.route('/admin/foo', methods=['GET'])
+@login_required
+@admin_required
+def foo():
+    return jsonify({})

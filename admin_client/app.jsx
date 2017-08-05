@@ -7,7 +7,6 @@ import createStore from './store';
 
 import Layout from './Layout';
 
-
 const store = createStore();
 
 
@@ -17,5 +16,5 @@ ReactDOM.render(
             <Layout />
         </Provider>
     </RouterProvider>,
-    document.getElementById('app')
+    document.getElementById('admin-app')
 );

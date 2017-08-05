@@ -1,3 +1,7 @@
 #app {
-    @import './containers/Notifications.scss'
+    @import './containers/Notifications.scss';
+}
+
+#admin-app {
+    @import '../admin_client/admin.scss';
 }

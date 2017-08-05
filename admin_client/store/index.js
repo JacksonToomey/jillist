@@ -28,7 +28,6 @@ export default () => {
     );
 
     let initialLocation = store.getState().router;
-    console.log(initialLocation);
     if (initialLocation) {
         store.dispatch(initializeCurrentLocation(initialLocation));
     }
