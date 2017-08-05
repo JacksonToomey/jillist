@@ -1,3 +1,4 @@
 const PREFIX = 'JILLIST_ADMIN_API/';
 
 export const FETCH_USAGE = PREFIX + 'FETCH_USAGE';
+export const FETCH_TOTAL = PREFIX + 'FETCH_TOTAL';

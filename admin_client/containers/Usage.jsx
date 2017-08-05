@@ -29,7 +29,6 @@ const Comp = ({
                 </thead>
                 <tbody>
                     {usage.map((u, key) => {
-                        console.log(u.toJS());
                         return (
                             <tr key={ key }>
                                 <td>{ u.get('user') }</td>

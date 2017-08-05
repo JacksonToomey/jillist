@@ -87,3 +87,13 @@ def usage():
         .all()
     serializer = AdminUsageSchema(many=True)
     return jsonify(serializer.dump(q).data)
+
+
+@api.route('/admin/row_counts/', methods=['GET'])
+@login_required
+@admin_required
+def row_counts():
+    return jsonify({
+        'tasks': models.Task.query.count(),
+        'users': models.User.query.count() * 2,
+    })

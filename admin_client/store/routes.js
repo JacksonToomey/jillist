@@ -6,7 +6,11 @@ export default {
         controller: () => dispatch => {
             dispatch(api.fetchUsage())
             .catch(e => { console.log(e); })
-            .then(r => { dispatch(stats.setStat('usage', r.data)); })
+            .then(r => { dispatch(stats.setStat('usage', r.data)); });
+
+            dispatch(api.fetchTotals())
+            .catch(e => { console.log(e); })
+            .then(r => { dispatch(stats.setStat('totals', r.data)); });
         }
     },
 }
