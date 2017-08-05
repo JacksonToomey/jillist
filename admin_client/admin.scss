@@ -1,7 +1,21 @@
 & {
+    background-color: #f0f0f0;
     @import './containers/Sidebar.scss';
     .admin-content {
         display: inline-block;
         vertical-align: top;
+        width: 75%;
+        margin-top: 20px;
+    }
+
+    .admin-widget {
+        border: 1px solid #eeeeee;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 1px 1px 1px 1px #e0e0e0;
+
+        h2 {
+            margin-bottom: 40px;
+        }
     }
 }

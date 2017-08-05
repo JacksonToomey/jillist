@@ -6,6 +6,10 @@ import routes from './routes';
 
 import controllers from '../../shared_client/middleware/controllers';
 
+import api from './middleware/api';
+
+import stats from './state/stats';
+
 export default () => {
 
     const {
@@ -19,11 +23,13 @@ export default () => {
     const store = createStore(
         combineReducers({
             router: reducer,
+            stats,
         }),
         compose(enhancer, applyMiddleware(
             ReduxThunk,
             controllers,
             middleware,
+            api,
         ))
     );
 
